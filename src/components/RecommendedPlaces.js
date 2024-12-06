@@ -1,6 +1,10 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, Image } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image, ImageBackground } from 'react-native';
 import img from '../../assets/DataImg.png';
+
+const christmasBg = {
+  uri: 'https://images.unsplash.com/photo-1545830912-4b714e8dbb35?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080', // Christmas snowy background
+};
 
 const places = [
   { id: 1, name: 'Kathmandu', distance: '15 KM', description: 'City full of temples and monkeys' },
@@ -21,7 +25,9 @@ const rainChances = [
 
 const RecommendedPlaces = () => (
   <View style={styles.cardContainer}>
-    <Text style={styles.title}>Recommended Places</Text>
+    <Text style={styles.title}>
+      🎄 Recommended Places
+    </Text>
     {places.map((item) => (
       <View key={item.id} style={styles.card}>
         <Image source={img} style={styles.image} />
@@ -37,14 +43,17 @@ const RecommendedPlaces = () => (
 
 const RainChances = () => (
   <View style={styles.cardContainer}>
-    <Text style={styles.title}>Chances of Rain</Text>
+    <Text style={styles.title}>❄️ Chances of Rain</Text>
     <View style={styles.barChart}>
       {rainChances.map((item) => (
         <View key={item.day} style={styles.barWrapper}>
           <View
             style={[
               styles.bar,
-              { height: `${item.value}%`, backgroundColor: item.value > 50 ? '#007BFF' : '#CCC' },
+              {
+                height: `${item.value}%`,
+                backgroundColor: item.value > 50 ? '#FF0000' : '#3CB371', // Red for higher, green for lower
+              },
             ]}
           />
           <Text style={styles.barLabel}>{item.day}</Text>
@@ -55,28 +64,44 @@ const RainChances = () => (
 );
 
 const App = () => (
-  <FlatList
-    data={[]}
-    keyExtractor={(item, index) => index.toString()}
-    renderItem={null}
-    ListHeaderComponent={
-      <>
-        <RecommendedPlaces />
-        <RainChances />
-      </>
-    }
-    contentContainerStyle={styles.container}
-  />
+  <ImageBackground source={christmasBg} resizeMode="cover" style={styles.background}>
+    <FlatList
+      data={[]}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={null}
+      ListHeaderComponent={
+        <>
+          <Text style={styles.greeting}>🎅 Extremely Sunny, <Text style={{
+            color:"#FFD700"
+          }}>Apply Sunscreen</Text>  </Text>
+          <RecommendedPlaces />
+          <RainChances />
+        </>
+      }
+      contentContainerStyle={styles.container}
+    />
+  </ImageBackground>
 );
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 6,
+  },
   container: {
-    padding: 0,
-   
     flexGrow: 1,
+    paddingBottom: 20,
+  },
+  greeting: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FFFF', // Gold color for festive greeting
+    textAlign: 'center',
+    marginBottom: 20,
   },
   cardContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Semi-transparent white
     borderRadius: 15,
     padding: 15,
     marginBottom: 20,
@@ -86,7 +111,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#333',
+    color: '#FF0000', // Christmas red
   },
   card: {
     flexDirection: 'row',
@@ -105,6 +130,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 16,
     fontWeight: '600',
+    color: '#2E8B57', // Forest green
   },
   distance: {
     fontSize: 14,

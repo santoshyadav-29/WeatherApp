@@ -52,6 +52,7 @@ const WeatherCard = ({ weather }) => {
           <Text style={styles.detailLabel}>Humidity</Text>
         </View>
       </View>
+      
     </View>
   );
 };
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
 
   container: {
     backgroundColor: "transparent", // Matches the gradient background
-    padding: 10,
+    padding: 5,
     alignItems: "center",
   },
   cityContainer: {
