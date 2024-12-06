@@ -5,95 +5,106 @@ import { FontAwesome5 } from "@expo/vector-icons"; // For icons
 const WeatherCard = ({ weather }) => {
   return (
     <View style={styles.container}>
+      {/* Main Weather Info */}
       <Text style={styles.city}>Kathmandu</Text>
+      <View style={styles.flexBox}>
+        
       <Text style={styles.temperature}>{weather.temperature}°C</Text>
-      <Text style={styles.condition}>{weather.condition}</Text>
-      <Text style={styles.date}>Friday, 6 December</Text>
-      <Text style={styles.feelsLike}>Feels Like {weather.feels_like}°</Text>
+        
+      <Text style={styles.condition}>Sunny</Text>
+        <Text style={styles.date}>Friday, 6 December</Text>
+        </View>
+        <Text style={styles.feelsLike}>Feels Like {weather.feels_like}°C</Text>
+        
 
-      <View style={styles.weatherDetails}>
+      {/* Weather Details Card */}
+      <View style={styles.detailsCard}>
         <View style={styles.detailBox}>
           <FontAwesome5 name="cloud-rain" size={24} color="#555" />
-          <Text style={styles.detailText}>
-            {weather.precipitation_probability}%
-          </Text>
+          <Text style={styles.detailValue}>{weather.precipitation_probability}%</Text>
+          <Text style={styles.detailLabel}>Precipitation</Text>
         </View>
         <View style={styles.detailBox}>
           <FontAwesome5 name="wind" size={24} color="#555" />
-          <Text style={styles.detailText}>{weather.wind_speed} km/hr</Text>
+          <Text style={styles.detailValue}>{weather.wind_speed} km/hr</Text>
+          <Text style={styles.detailLabel}>Wind Speed</Text>
         </View>
         <View style={styles.detailBox}>
           <FontAwesome5 name="thermometer-half" size={24} color="#555" />
-          <Text style={styles.detailText}>{weather.atm_pressure} mm</Text>
+          <Text style={styles.detailValue}>{weather.atm_pressure} mm</Text>
+          <Text style={styles.detailLabel}>Atm Pressure</Text>
         </View>
         <View style={styles.detailBox}>
           <FontAwesome5 name="tint" size={24} color="#555" />
-          <Text style={styles.detailText}>{weather.humidity}%</Text>
+          <Text style={styles.detailValue}>{weather.humidity}%</Text>
+          <Text style={styles.detailLabel}>Humidity</Text>
         </View>
       </View>
-
-      <Text style={styles.warning}>Extremely Sunny</Text>
-      <Text style={styles.sunscreen}>Apply Sunscreen</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: 10,
     alignItems: "center",
-   
-    // borderRadius: 20,
-    // margin: 10,
-    // elevation: 5,
-    // shadowColor: "#000",
+    backgroundColor: "transparent", // Ensure background image shows
   },
   city: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: "600",
-    color: "#ffff",
+    color: "#fff",
   },
   temperature: {
-    fontSize: 60,
+    fontSize: 72,
     fontWeight: "bold",
-    color: "#ffff",
+    color: "#fff",
   },
   condition: {
-    fontSize: 18,
-    color: "#666",
+    fontSize: 20,
+    fontWeight: "500",
+    color: "#fff",
+    marginVertical: 5,
   },
   date: {
     fontSize: 16,
-    marginVertical: 8,
-    color: "#aaa",
+    color: "#ddd",
   },
   feelsLike: {
-    fontSize: 14,
-    color: "#aaa",
+    fontSize: 16,
+    color: "#ddd",
+    marginTop: 5,
   },
-  weatherDetails: {
-    flexDirection: "row",
-    justifyContent: "space-around",
+  detailsCard: {
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    padding: 15,
     marginTop: 20,
-    width: "100%",
+    // width: "90%",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 5,
+    flexDirection: "row",
+    flexWrap:'wrap',
+    justifyContent: "space-around",
   },
   detailBox: {
     alignItems: "center",
+    width: "50%", // Ensures even spacing
   },
-  detailText: {
-    marginTop: 5,
-    fontSize: 14,
+  detailValue: {
+    fontSize: 18,
+    fontWeight: "600",
     color: "#333",
+    marginTop: 8,
   },
-  warning: {
-    fontSize: 16,
-    color: "red",
-    fontWeight: "bold",
-    marginTop: 15,
-  },
-  sunscreen: {
+  detailLabel: {
     fontSize: 14,
-    color: "#FF8800",
+    color: "#888",
+    marginTop: 3,
+    textAlign: "center",
   },
 });
 
