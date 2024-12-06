@@ -1,20 +1,45 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, ScrollView, StyleSheet, ImageBackground } from "react-native";
+import WeatherCards from "./src/components/WeatherCard.js";
+import RecommendedPlaces from "./src/components/RecommendedPlaces";
+import { fetchWeatherData } from "./src/services/api";
+import backgroundImg from "./assets/Snowy Background.png"; // Replace with your actual background image path
 
-export default function App() {
+const App = () => {
+  const [weather, setWeather] = useState(null);
+
+  useEffect(() => {
+    const getWeather = async () => {
+      const data = await fetchWeatherData();
+      if (data) setWeather(data.weather);
+    };
+    getWeather();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ImageBackground
+      source={backgroundImg}
+      style={styles.background}
+      resizeMode="cover" // Ensures the image covers the screen
+    >
+      <SafeAreaView style={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {weather && <WeatherCards weather={weather} />}
+          <RecommendedPlaces />
+        </ScrollView>
+      </SafeAreaView>
+    </ImageBackground>
   );
-}
+};
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1, // Ensures the background image fills the entire screen
+  },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "transparent", // Transparent to show the background image
   },
 });
+
+export default App;
