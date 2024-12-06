@@ -5,16 +5,28 @@ import { FontAwesome5 } from "@expo/vector-icons"; // For icons
 const WeatherCard = ({ weather }) => {
   return (
     <View style={styles.container}>
-      {/* Main Weather Info */}
-      <Text style={styles.city}>Kathmandu</Text>
-      <View style={styles.flexBox}>
-        
-      <Text style={styles.temperature}>{weather.temperature}°C</Text>
-        
-      <Text style={styles.condition}>Sunny</Text>
-        <Text style={styles.date}>Friday, 6 December</Text>
-        </View>
-        <Text style={styles.feelsLike}>Feels Like {weather.feels_like}°C</Text>
+
+    <View style={styles.cityContainer}>
+    <FontAwesome5 name="map-marker-alt" size={16} color="#fff" />
+    <Text style={styles.cityText}>Kathmandu</Text>
+  </View>
+
+  {/* Temperature and Weather Info */}
+  <View style={styles.mainInfo}>
+    <Text style={styles.temperature}>40°C</Text>
+
+    <View style={styles.divider} />
+
+    <View style={styles.weatherInfo}>
+      <Text style={styles.condition}>
+        Sunny <FontAwesome5 name="cloud-sun" size={16} color="#fff" />
+      </Text>
+      <Text style={styles.date}>Friday, 6 December</Text>
+    </View>
+  </View>
+
+  {/* Feels Like */}
+  <Text style={styles.feelsLike}>Feels Like 42°C</Text>
         
 
       {/* Weather Details Card */}
@@ -45,39 +57,60 @@ const WeatherCard = ({ weather }) => {
 };
 
 const styles = StyleSheet.create({
+
   container: {
+    backgroundColor: "transparent", // Matches the gradient background
     padding: 10,
     alignItems: "center",
-    backgroundColor: "transparent", // Ensure background image shows
   },
-  city: {
-    fontSize: 24,
-    fontWeight: "600",
+  cityContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  cityText: {
+    fontSize: 18,
+    fontWeight: "500",
     color: "#fff",
+    marginLeft: 8,
+  },
+  mainInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
   temperature: {
-    fontSize: 72,
+    fontSize: 64,
     fontWeight: "bold",
     color: "#fff",
   },
+  divider: {
+    width: 1,
+    height: 60,
+    backgroundColor: "#fff",
+    marginHorizontal: 20,
+  },
+  weatherInfo: {
+    justifyContent: "center",
+  },
   condition: {
-    fontSize: 20,
-    fontWeight: "500",
+    fontSize: 18,
+    fontWeight: "600",
     color: "#fff",
-    marginVertical: 5,
+    marginBottom: 5,
   },
   date: {
-    fontSize: 16,
+    fontSize: 14,
     color: "#ddd",
   },
   feelsLike: {
     fontSize: 16,
     color: "#ddd",
-    marginTop: 5,
+    marginTop: 10,
   },
   detailsCard: {
     backgroundColor: "#fff",
-    borderRadius: 15,
+    borderRadius: 14,
     padding: 15,
     marginTop: 20,
     // width: "90%",
